@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/config/app_router.dart';
+import 'package:e_commerce_app/config/theme.dart';
 import 'package:e_commerce_app/screens/home/home_screens.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Zero to Unicorn',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme(),
       onGenerateRoute: AppRouter.onGenerateRoute,
       initialRoute: Homescreen.routename,
       home: const Homescreen(),
