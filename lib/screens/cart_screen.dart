@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/screens/home_screens.dart';
+import 'package:e_commerce_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 

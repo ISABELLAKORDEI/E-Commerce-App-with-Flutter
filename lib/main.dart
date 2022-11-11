@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/config/app_router.dart';
 import 'package:e_commerce_app/config/theme.dart';
-import 'package:e_commerce_app/screens/home_screens.dart';
+import 'package:e_commerce_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
