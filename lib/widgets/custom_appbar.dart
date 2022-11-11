@@ -13,6 +13,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      toolbarHeight: 80,
+      centerTitle: true,
       title: Container(
           color: Colors.black,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -29,5 +31,5 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(50.0);
+  Size get preferredSize => const Size.fromHeight(50.0);
 }
