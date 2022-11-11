@@ -5,7 +5,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   const CustomAppBar({
     Key? key,
-    required this.title, 
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -14,27 +14,20 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       title: Container(
-        color: Colors.black,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20
-          vertical: 10
-        ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Colors.white
-            fontSize: 24
-            fontFamily: 'Avenir'
-            fontWeight: FontWeight.bold
-          )
-        )
-      ),
-      iconTheme: IconThemeData(color: Colors.black),
-      actions: [IconButton(icon: Icon(Icons.favorite), onPressed: () {})],
+          color: Colors.black,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontFamily: 'Avenir',
+                fontWeight: FontWeight.bold,
+              ))),
+      iconTheme: const IconThemeData(color: Colors.black),
+      actions: [IconButton(icon: const Icon(Icons.favorite), onPressed: () {})],
     );
   }
 
-
-@override
-Size get preferredSize => Size.fromHeight(50.0);
+  @override
+  Size get preferredSize => Size.fromHeight(50.0);
 }

@@ -9,23 +9,23 @@ class CustomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.black,
-      child: Container(
+      child: SizedBox(
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-                icon: Icon(Icons.home, color: Colors.white),
+                icon: const Icon(Icons.home, color: Colors.white),
                 onPressed: () {
                   Navigator.pushNamed(context, '/');
                 }),
             IconButton(
-                icon: Icon(Icons.shopping_cart, color: Colors.white),
+                icon: const Icon(Icons.shopping_cart, color: Colors.white),
                 onPressed: () {
                   Navigator.pushNamed(context, '/cart');
                 }),
             IconButton(
-                icon: Icon(Icons.person, color: Colors.white),
+                icon: const Icon(Icons.person, color: Colors.white),
                 onPressed: () {
                   Navigator.pushNamed(context, '/user');
                 })

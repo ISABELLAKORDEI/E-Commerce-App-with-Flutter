@@ -1,30 +1,27 @@
-import 'package:e_commerce_app/screens/cart/cart_screen.dart';
 import 'package:e_commerce_app/screens/home/screens.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
-    print('This is route:${settings.name}');
+    debugPrint('This is route:${settings.name}');
 
     switch (settings.name) {
-      case '/':
-        return HomeScreen.route();
-      case Homescreen.routeName:
+      case Homescreen.routename:
         return Homescreen.route();
 
       case CartScreen.routename:
         return CartScreen.route();
-    
 
       default:
-        return errorRoute();
+        return _errorRoute();
     }
   }
+
   static Route _errorRoute() {
     return MaterialPageRoute(
-        settings: RouteSettings(name: '/error'), 
+        settings: const RouteSettings(name: '/error'),
         builder: (_) => Scaffold(
-          appBar: AppBar(title: Text('Error')),
-       ),
+              appBar: AppBar(title: const Text('Error')),
+            ));
   }
 }
