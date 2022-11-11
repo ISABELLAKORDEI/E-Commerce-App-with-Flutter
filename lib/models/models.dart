@@ -1,2 +1,2 @@
-export './category.dart';
-export './product_model.dart';
+export 'category.dart';
+export 'product_model.dart';

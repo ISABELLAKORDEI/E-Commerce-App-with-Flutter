@@ -4,7 +4,7 @@ import 'package:e_commerce_app/widgets/hero_carousel_card.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 
-import '../../models/category.dart';
+import '../models/category.dart';
 
 class Homescreen extends StatelessWidget {
   static const String routename = '/';
