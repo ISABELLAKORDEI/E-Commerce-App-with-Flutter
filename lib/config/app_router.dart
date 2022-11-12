@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/models/models.dart';
 import 'package:e_commerce_app/screens/screens.dart';
+import 'package:e_commerce_app/screens/splash_screen.dart';
 import 'package:e_commerce_app/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +9,10 @@ class AppRouter {
     debugPrint('This is route:${settings.name}');
 
     switch (settings.name) {
-      case Homescreen.routename:
+      case Homescreen.routeName:
         return Homescreen.route();
 
-      case CartScreen.routename:
+      case CartScreen.routeName:
         return CartScreen.route();
 
       case CatalogScreen.routeName:
@@ -19,6 +20,9 @@ class AppRouter {
 
       case ProductScreen.routeName:
         return ProductScreen.route(product: settings.arguments as Product);
+
+      case SplashScreen.routeName:
+        return SplashScreen.route();
 
       case WishlistScreen.routeName:
         return WishlistScreen.route();

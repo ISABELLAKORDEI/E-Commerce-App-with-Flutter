@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:e_commerce_app/config/app_router.dart';
 import 'package:e_commerce_app/config/theme.dart';
-import 'package:e_commerce_app/screens/home_screen.dart';
+import 'package:e_commerce_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Zero to Unicorn',
+        debugShowCheckedModeBanner: false,
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: Homescreen.routename,
-        home: const Homescreen(),
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }

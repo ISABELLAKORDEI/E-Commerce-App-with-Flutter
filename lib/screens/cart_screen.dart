@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 
 class CartScreen extends StatelessWidget {
-  static const String routename = '/cart';
+  static const String routeName = '/cart';
 
   const CartScreen({super.key});
 
   static Route route() {
     return MaterialPageRoute(
-        settings: const RouteSettings(name: routename),
+        settings: const RouteSettings(name: routeName),
         builder: (_) => const CartScreen());
   }
 

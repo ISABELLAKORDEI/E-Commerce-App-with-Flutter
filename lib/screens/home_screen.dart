@@ -6,13 +6,13 @@ import 'package:e_commerce_app/widgets/widgets.dart';
 import '../models/category.dart';
 
 class Homescreen extends StatelessWidget {
-  static const String routename = '/';
+  static const String routeName = '/';
 
   const Homescreen({super.key});
 
   static Route route() {
     return MaterialPageRoute(
-        settings: const RouteSettings(name: routename),
+        settings: const RouteSettings(name: routeName),
         builder: (_) => const Homescreen());
   }
 
