@@ -15,20 +15,23 @@ class CustomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-                icon: const Icon(Icons.home, color: Colors.white),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
-                }),
+              icon: const Icon(Icons.home, color: Colors.white),
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
+            ),
             IconButton(
-                icon: const Icon(Icons.shopping_cart, color: Colors.white),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/cart');
-                }),
+              icon: const Icon(Icons.shopping_cart, color: Colors.white),
+              onPressed: () {
+                Navigator.pushNamed(context, '/cart');
+              },
+            ),
             IconButton(
-                icon: const Icon(Icons.person, color: Colors.white),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/user');
-                })
+              icon: const Icon(Icons.person, color: Colors.white),
+              onPressed: () {
+                Navigator.pushNamed(context, '/user');
+              },
+            ),
           ],
         ),
       ),

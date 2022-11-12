@@ -1,23 +1,139 @@
-import 'package:e_commerce_app/screens/home_screen.dart';
+import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/widgets/cart_product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 
 class CartScreen extends StatelessWidget {
-  static const String routename = 'cart';
+  static const String routename = '/cart';
 
   const CartScreen({super.key});
 
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routename),
-        builder: (_) => const Homescreen());
+        builder: (_) => const CartScreen());
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBar(title: 'Cart'),
-      bottomNavigationBar: CustomNavBar(),
-    );
+    return Scaffold(
+        appBar: const CustomAppBar(title: 'Cart'),
+        bottomNavigationBar: const CustomNavBar(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Add \$ 20.00 for free delivery',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: const RoundedRectangleBorder(),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'Add More Items',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 400,
+                child: ListView.builder(
+                    itemCount: Product.products.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CartProductCard(
+                        product: Product.products[index],
+                        quantity: Product.products[index].price.toInt(),
+                      );
+                    }),
+              ),
+              const Divider(thickness: 2),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('SUBTOTAL',
+                        style: Theme.of(context).textTheme.headline5),
+                    Text('\$ 20.00',
+                        style: Theme.of(context).textTheme.headline5),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('DELIVERY FEE',
+                        style: Theme.of(context).textTheme.headline5),
+                    Text('\$ 2.00',
+                        style: Theme.of(context).textTheme.headline5),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Stack(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withAlpha(50),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(5.0),
+                    width: MediaQuery.of(context).size.width - 10,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'TOTAL',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(color: Colors.white),
+                          ),
+                          Text(
+                            '\$ 22.00',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }
