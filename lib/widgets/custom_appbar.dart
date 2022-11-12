@@ -16,17 +16,30 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       toolbarHeight: 80,
       centerTitle: true,
       title: Container(
-          color: Colors.black,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontFamily: 'Avenir',
-                fontWeight: FontWeight.bold,
-              ))),
+        color: Colors.black,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontFamily: 'Avenir',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       iconTheme: const IconThemeData(color: Colors.black),
-      actions: [IconButton(icon: const Icon(Icons.favorite), onPressed: () {})],
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.favorite),
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              '/wishlist',
+            );
+          },
+        ),
+      ],
     );
   }
 
