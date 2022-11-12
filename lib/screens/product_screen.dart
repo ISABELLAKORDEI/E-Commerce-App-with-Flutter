@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '/models/models.dart';
 import '/widgets/widgets.dart';
 
@@ -32,11 +34,28 @@ class ProductScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.share, color: Colors.white)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite, color: Colors.white)),
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                  ),
+                  BlocBuilder<WishlistBloc, WishlistState>(
+                    builder: (context, state) {
+                      return IconButton(
+                        onPressed: () {
+                          context
+                              .read<WishlistBloc>()
+                              .add(WishlistProductAdded(product));
+                          const snackBar = SnackBar(
+                            content: Text('Added to your wishlist'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                        icon: const Icon(Icons.favorite, color: Colors.white),
+                      );
+                    },
+                  ),
                   ElevatedButton(
                     onPressed: () {},
                     style:
@@ -116,7 +135,9 @@ class ProductScreen extends StatelessWidget {
                     ListTile(
                       title: Text(
                         // product.description ??
-                        'Lorem Consequat duis laborum id qui esse nisi. Laborum aliquip et sit proident ex cillum exercitation eu tempor officia dolore incididunt dolor. Pariatur ad occaecat ea irure aliquip et quis.',
+                        'Lorem Consequat duis laborum id qui esse nisi. Laborum aliquip et sit '
+                        'proident ex cillum exercitation eu tempor officia dolore incididunt '
+                        'dolor. Pariatur ad occaecat ea irure aliquip et quis.',
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     )
@@ -130,7 +151,11 @@ class ProductScreen extends StatelessWidget {
                   children: <Widget>[
                     ListTile(
                       title: Text(
-                        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
+                        'At vero eos et accusamus et iusto odio dignissimos ducimus qui'
+                        'blanditiis praesentium voluptatum deleniti atque corrupti quos dolores'
+                        'et quas molestias excepturi sint occaecati cupiditate non provident, '
+                        'similique sunt in culpa qui officia deserunt mollitia animi, id est'
+                        'laborum et dolorum fuga.',
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     )
