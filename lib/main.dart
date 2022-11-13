@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => CategoryBloc(
             categoryRepository: CategoryRepository(),
-          ),
+          )..add(LoadCategories()),
         ),
       ],
       child: MaterialApp(
