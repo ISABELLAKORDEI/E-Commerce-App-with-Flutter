@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/blocs/category/category_bloc.dart';
-import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/blocs/product/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,15 +50,41 @@ class Homescreen extends StatelessWidget {
               },
             ),
             const SectionTitle(title: 'RECOMMENDED'),
-            ProductCarousel(
-                products: Product.products
-                    .where((product) => product.isRecommended)
-                    .toList()),
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is ProductLoaded) {
+                  return ProductCarousel(
+                      products: state.products
+                          .where((product) => product.isRecommended)
+                          .toList());
+                } else {
+                  return const Text('Something went wrong.');
+                }
+              },
+            ),
             const SectionTitle(title: 'MOST POPULAR'),
-            ProductCarousel(
-                products: Product.products
-                    .where((product) => product.isPopular)
-                    .toList())
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is ProductLoaded) {
+                  return ProductCarousel(
+                      products: state.products
+                          .where((product) => product.isPopular)
+                          .toList());
+                } else {
+                  return const Text('Something went wrong.');
+                }
+              },
+            ),
           ],
         ),
       ),
