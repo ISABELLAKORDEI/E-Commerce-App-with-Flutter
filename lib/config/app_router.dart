@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/models/models.dart';
-import 'package:e_commerce_app/screens/checkout/checkout_screen.dart';
 import 'package:e_commerce_app/screens/screens.dart';
 import 'package:e_commerce_app/screens/splash_screen.dart';
 import 'package:e_commerce_app/screens/wishlist_screen.dart';
