@@ -16,6 +16,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       : _categoryRepository = categoryRepository,
         super(CategoryLoading());
 
+  @override
   Stream<CategoryState> mapEventToState(
     CategoryEvent event,
   ) async* {
