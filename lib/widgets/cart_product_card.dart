@@ -299,9 +299,7 @@ class ProductActions extends StatelessWidget {
                   content: Text('Removed from your Wishlist!'),
                 ),
               );
-              context
-                  .read<WishlistBloc>()
-                  .add(WishlistProductRemoved(product));
+              context.read<WishlistBloc>().add(WishlistProductRemoved(product));
             },
           );
 
