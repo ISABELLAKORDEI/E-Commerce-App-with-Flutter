@@ -1,7 +1,7 @@
-import 'package:e_commerce_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce_app/blocs/cart/cart_bloc.dart';
+import 'package:e_commerce_app/blocs/checkout/checkout_bloc.dart';
 import 'package:e_commerce_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:e_commerce_app/models/models.dart';
 
@@ -106,7 +106,7 @@ class CustomNavBar extends StatelessWidget {
           if (state is CartLoaded) {
             return ElevatedButton(
               onPressed: () {
-                // context.read<CartBloc>().add(CartProductAdded(product));
+                context.read<CartBloc>().add(CartProductAdded(product));
                 Navigator.pushNamed(context, '/cart');
               },
               style: ElevatedButton.styleFrom(
@@ -145,16 +145,33 @@ class CustomNavBar extends StatelessWidget {
 
   List<Widget> _buildOrderNowNavBar(context) {
     return [
-      ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(),
-        ),
-        child: Text(
-          'ORDER NOW',
-          style: Theme.of(context).textTheme.headline3,
-        ),
+      BlocBuilder<CheckoutBloc, CheckoutState>(
+        builder: (context, state) {
+          if (state is CheckoutLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is CheckoutLoaded) {
+            return ElevatedButton(
+              onPressed: () {
+                context
+                    .read<CheckoutBloc>()
+                    .add(ConfirmCheckout(checkout: state.checkout));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(),
+              ),
+              child: Text(
+                'ORDER NOW',
+                style: Theme.of(context).textTheme.headline3,
+              ),
+            );
+          } else {
+            return const Text('Something went wrong');
+          }
+        },
       )
     ];
   }
