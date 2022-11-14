@@ -1,39 +1,37 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
-import '../../models/wishlist_model.dart';
 
 part 'wishlist_event.dart';
 part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistLoading()) {
-    on<WishlistStarted>(_onStartWishlist);
-    on<WishlistProductAdded>(_onAddProductToWishlist);
-    on<WishlistProductRemoved>(_onRemoveProductFromWishlist);
+    on<StartWishlist>(_onStartWishlist);
+    on<AddProductToWishlist>(_onAddProductToWishlist);
+    on<RemoveProductFromWishlist>(_onRemoveProductFromWishlist);
   }
 
   void _onStartWishlist(
-    WishlistStarted event,
+    StartWishlist event,
     Emitter<WishlistState> emit,
   ) async {
     emit(WishlistLoading());
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
-      emit(
-        const WishlistLoaded(),
-      );
+      emit(const WishlistLoaded());
     } catch (_) {
       emit(WishlistError());
     }
   }
 
   void _onAddProductToWishlist(
-    WishlistProductAdded event,
+    AddProductToWishlist event,
     Emitter<WishlistState> emit,
-  ) async {
+  ) {
     if (state is WishlistLoaded) {
       try {
         emit(
@@ -51,9 +49,9 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   }
 
   void _onRemoveProductFromWishlist(
-    WishlistProductRemoved event,
+    RemoveProductFromWishlist event,
     Emitter<WishlistState> emit,
-  ) async {
+  ) {
     if (state is WishlistLoaded) {
       try {
         emit(
