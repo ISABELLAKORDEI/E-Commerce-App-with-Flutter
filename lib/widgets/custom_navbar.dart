@@ -91,7 +91,7 @@ class CustomNavBar extends StatelessWidget {
                 const snackBar =
                     SnackBar(content: Text('Added to your Wishlist!'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                context.read<WishlistBloc>().add(WishlistProductAdded(product));
+                context.read<WishlistBloc>().add(AddProductToWishlist(product));
               },
             );
           }
