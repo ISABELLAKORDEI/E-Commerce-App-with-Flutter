@@ -5,10 +5,14 @@ import 'product_card.dart';
 
 class ProductCarousel extends StatelessWidget {
   final List<Product> products;
+  final bool? isRecommendedCarousel;
+  final bool? isMostPopularCarousel;
 
   const ProductCarousel({
     Key? key,
     required this.products,
+    this.isRecommendedCarousel,
+    this.isMostPopularCarousel,
   }) : super(key: key);
 
   @override
@@ -28,7 +32,7 @@ class ProductCarousel extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(right: 5.0),
-              child: ProductCard.catalog(product: products[index]),
+              child: ProductCard(product: products[index]),
             );
           },
         ),

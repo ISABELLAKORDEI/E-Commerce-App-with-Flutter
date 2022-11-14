@@ -1,7 +1,6 @@
-import 'package:e_commerce_app/blocs/category/category_bloc.dart';
-import 'package:e_commerce_app/blocs/checkout/checkout_bloc.dart';
-import 'package:e_commerce_app/blocs/product/product_bloc.dart';
-import 'package:e_commerce_app/blocs/wishlist/wishlist_bloc.dart';
+import 'dart:async';
+
+import 'package:e_commerce_app/blocs/blocs.dart';
 import 'package:e_commerce_app/config/app_router.dart';
 import 'package:e_commerce_app/config/theme.dart';
 import 'package:e_commerce_app/repositories/category/category_repository.dart';
@@ -12,12 +11,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'blocs/cart/cart_bloc.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+
+  await runZonedGuarded(
+    () async => runApp(const MyApp()),
+    (_, __) {},
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => WishlistBloc()..add(WishlistStarted())),
-        BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
+        BlocProvider(create: (_) => WishlistBloc()..add(StartWishlist())),
+        BlocProvider(create: (_) => CartBloc()..add(LoadCart())),
         BlocProvider(
           create: (context) => CheckoutBloc(
             cartBloc: context.read<CartBloc>(),

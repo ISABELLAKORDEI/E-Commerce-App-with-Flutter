@@ -269,7 +269,7 @@ class ProductActions extends StatelessWidget {
                   content: Text('Added to your Cart!'),
                 ),
               );
-              context.read<CartBloc>().add(CartProductAdded(product));
+              context.read<CartBloc>().add(AddProduct(product));
             },
           );
 
@@ -284,7 +284,7 @@ class ProductActions extends StatelessWidget {
                   content: Text('Removed from your Cart!'),
                 ),
               );
-              context.read<CartBloc>().add(CartProductRemoved(product));
+              context.read<CartBloc>().add(RemoveProduct(product));
             },
           );
 
@@ -299,7 +299,9 @@ class ProductActions extends StatelessWidget {
                   content: Text('Removed from your Wishlist!'),
                 ),
               );
-              context.read<WishlistBloc>().add(WishlistProductRemoved(product));
+              context
+                  .read<WishlistBloc>()
+                  .add(RemoveProductFromWishlist(product));
             },
           );
 
