@@ -26,7 +26,7 @@ class CatalogScreen extends StatelessWidget {
         .toList();
     return Scaffold(
       appBar: CustomAppBar(title: category.name),
-      bottomNavigationBar: const CustomNavBar(),
+      bottomNavigationBar: const CustomNavBar(screen: routeName),
       body: GridView.builder(
         padding: const EdgeInsets.symmetric(
           horizontal: 8.0,
@@ -40,8 +40,8 @@ class CatalogScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Center(
             child: ProductCard.catalog(
-                    product: categoryProducts[index],
-                  ),
+              product: categoryProducts[index],
+            ),
           );
         },
       ),
