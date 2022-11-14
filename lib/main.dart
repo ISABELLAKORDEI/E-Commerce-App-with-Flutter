@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:e_commerce_app/blocs/blocs.dart';
 import 'package:e_commerce_app/config/app_router.dart';
 import 'package:e_commerce_app/config/theme.dart';
@@ -12,7 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+
+  await runZonedGuarded(
+    () async => runApp(const MyApp()),
+    (_, __) {},
+  );
 }
 
 class MyApp extends StatelessWidget {
