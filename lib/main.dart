@@ -1,9 +1,11 @@
 import 'package:e_commerce_app/blocs/category/category_bloc.dart';
+import 'package:e_commerce_app/blocs/checkout/checkout_bloc.dart';
 import 'package:e_commerce_app/blocs/product/product_bloc.dart';
 import 'package:e_commerce_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:e_commerce_app/config/app_router.dart';
 import 'package:e_commerce_app/config/theme.dart';
 import 'package:e_commerce_app/repositories/category/category_repository.dart';
+import 'package:e_commerce_app/repositories/checkout/checkout_repository.dart';
 import 'package:e_commerce_app/repositories/product/product_repository.dart';
 import 'package:e_commerce_app/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +29,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => WishlistBloc()..add(WishlistStarted())),
         BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
+        BlocProvider(
+          create: (context) => CheckoutBloc(
+            cartBloc: context.read<CartBloc>(),
+            checkoutRepository: CheckoutRepository(),
+          ),
+        ),
         BlocProvider(
           create: (_) => CategoryBloc(
             categoryRepository: CategoryRepository(),
