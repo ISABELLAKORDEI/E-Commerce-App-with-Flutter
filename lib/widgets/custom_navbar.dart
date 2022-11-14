@@ -106,7 +106,7 @@ class CustomNavBar extends StatelessWidget {
           if (state is CartLoaded) {
             return ElevatedButton(
               onPressed: () {
-                context.read<CartBloc>().add(CartProductAdded(product));
+                context.read<CartBloc>().add(AddProduct(product));
                 Navigator.pushNamed(context, '/cart');
               },
               style: ElevatedButton.styleFrom(
