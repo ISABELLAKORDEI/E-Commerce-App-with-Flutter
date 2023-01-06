@@ -34,6 +34,11 @@ class Failure implements Exception {
   final String message;
   List<ECommerceAppFieldValidationError> errors;
 
+  @override
+  String toString() {
+    return message;
+  }
+
   List<String> errorMessages() {
     final _errors = <String>[];
 
