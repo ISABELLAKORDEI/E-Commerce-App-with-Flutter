@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:e_commerce_app/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -23,15 +26,29 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
       emit(const WishlistLoaded());
-    } catch (_) {
+      await Logger.log(Log(
+          typeOfLog: 'DEBUG',
+          microservice: 'Wishlist MGNT',
+          message: 'User Wishlist loaded',
+          screen: 'Wishlist Screen',
+          time: TimeOfDay.now().toString(),
+          os: Platform.operatingSystem));
+    } catch (e) {
       emit(WishlistError());
+      await Logger.log(Log(
+          typeOfLog: 'FATAL',
+          microservice: 'Wishlist MGNT',
+          message: 'Error loading user Wishlist',
+          screen: 'Wishlist Screen',
+          time: TimeOfDay.now().toString(),
+          os: Platform.operatingSystem));
     }
   }
 
   void _onAddProductToWishlist(
     AddProductToWishlist event,
     Emitter<WishlistState> emit,
-  ) {
+  ) async {
     if (state is WishlistLoaded) {
       try {
         emit(
@@ -42,8 +59,22 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             ),
           ),
         );
-      } on Exception {
+        await Logger.log(Log(
+            typeOfLog: 'INFO',
+            microservice: 'Wishlist MGNT',
+            message: 'Product added to wishlist',
+            screen: 'Wishlist Screen',
+            time: TimeOfDay.now().toString(),
+            os: Platform.operatingSystem));
+      } on Exception catch (e) {
         emit(WishlistError());
+        await Logger.log(Log(
+            typeOfLog: 'FATAL',
+            microservice: 'Wishlist MGNT',
+            message: 'Error adding product to wishlist: ${e.toString()}',
+            screen: 'Wishlist Screen',
+            time: TimeOfDay.now().toString(),
+            os: Platform.operatingSystem));
       }
     }
   }
@@ -51,7 +82,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   void _onRemoveProductFromWishlist(
     RemoveProductFromWishlist event,
     Emitter<WishlistState> emit,
-  ) {
+  ) async {
     if (state is WishlistLoaded) {
       try {
         emit(
@@ -62,8 +93,22 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             ),
           ),
         );
-      } on Exception {
+        await Logger.log(Log(
+            typeOfLog: 'INFO',
+            microservice: 'Wishlist MGNT',
+            message: 'Product removed from wishlist',
+            screen: 'Wishlist Screen',
+            time: TimeOfDay.now().toString(),
+            os: Platform.operatingSystem));
+      } on Exception catch (e) {
         emit(WishlistError());
+        await Logger.log(Log(
+            typeOfLog: 'FATAL',
+            microservice: 'Wishlist MGNT',
+            message: 'Error removing product from wishlist: ${e.toString()}',
+            screen: 'Wishlist Screen',
+            time: TimeOfDay.now().toString(),
+            os: Platform.operatingSystem));
       }
     }
   }
