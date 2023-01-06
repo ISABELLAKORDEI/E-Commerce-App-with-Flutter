@@ -11,7 +11,7 @@ class NetworkUtil {
   Dio _getHttpClient() {
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'https://applogsmonitorr.azurewebsites.net/api',
+        baseUrl: 'https://applogsmonitorr.azurewebsites.net',
         contentType: 'application/json',
         headers: <String, dynamic>{'Accept': 'application/json'},
         connectTimeout: 60 * 1000,
