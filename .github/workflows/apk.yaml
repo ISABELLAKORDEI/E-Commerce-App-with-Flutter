@@ -45,10 +45,10 @@ jobs:
           echo "keyAlias=${{ secrets.RELEASE_KEYSTORE_ALIAS }}" >> android/key.properties
 
       - name: Build APK
-        run: flutter build apk  --flavor production --target lib/main_production.dart
+        run: flutter build apk
 
       # Upload generated apk to the artifacts.
       - uses: actions/upload-artifact@v1
         with:
           name: ecommerce-apk
-          path: build/app/outputs/flutter-apk/app-production-release.apk
+          path: build/app/outputs/flutter-apk/app.apk
