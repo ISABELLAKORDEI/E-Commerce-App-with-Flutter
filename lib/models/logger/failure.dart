@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, no_leading_underscores_for_local_identifiers
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'failure.g.dart';
@@ -21,7 +23,8 @@ class ECommerceAppFieldValidationError with _$ECommerceAppFieldValidationError {
     List<String> errors,
   ) = _ECommerceAppFieldValidationError;
 
-  factory ECommerceAppFieldValidationError.fromJson(Map<String, dynamic> json) =>
+  factory ECommerceAppFieldValidationError.fromJson(
+          Map<String, dynamic> json) =>
       _$ECommerceAppFieldValidationErrorFromJson(json);
 }
 
@@ -36,7 +39,7 @@ class Failure implements Exception {
 
   @override
   String toString() {
-    return message;
+    return message + errors.toString();
   }
 
   List<String> errorMessages() {
