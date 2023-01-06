@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:e_commerce_app/models/models.dart';
 import 'package:e_commerce_app/repositories/product/product_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -22,19 +26,33 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   void _onLoadProducts(
     LoadProducts event,
     Emitter<ProductState> emit,
-  ) {
+  ) async {
     _productSubscription?.cancel();
     _productSubscription = _productRepository.getAllProducts().listen(
           (products) => add(
             UpdateProducts(products),
           ),
         );
+    await Logger.log(Log(
+        typeOfLog: 'DEBUG',
+        microservice: 'Products SYS',
+        message: 'Subscribing to products',
+        screen: 'Products Screen',
+        time: TimeOfDay.now().toString(),
+        os: Platform.operatingSystem));
   }
 
   void _onUpdateProducts(
     UpdateProducts event,
     Emitter<ProductState> emit,
-  ) {
+  ) async {
     emit(ProductLoaded(products: event.products));
+    await Logger.log(Log(
+        typeOfLog: 'INFO',
+        microservice: 'Products SYS',
+        message: 'Products updated',
+        screen: 'Products Screen',
+        time: TimeOfDay.now().toString(),
+        os: Platform.operatingSystem));
   }
 }
