@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:e_commerce_app/logger/rest_api.dart';
 import 'package:e_commerce_app/models/logger/log_model.dart';
+import 'package:flutter/foundation.dart';
 
 NetworkUtil _networkUtil = NetworkUtil();
 
@@ -16,8 +17,10 @@ class Logger {
         body: json.encode(log.toJson()),
       );
     } on SocketException {
+      debugPrint('Error');
       throw ('Check network connection!');
     } catch (e) {
+      debugPrint(e.toString());
       rethrow;
     }
   }
