@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app/blocs/blocs.dart';
+import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:e_commerce_app/models/models.dart';
 import 'package:e_commerce_app/repositories/checkout/checkout_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 part 'checkout_event.dart';
 part 'checkout_state.dart';
@@ -45,7 +48,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   void _onUpdateCheckout(
     UpdateCheckout event,
     Emitter<CheckoutState> emit,
-  ) {
+  ) async {
     if (state is CheckoutLoaded) {
       final state = this.state as CheckoutLoaded;
       emit(
@@ -62,6 +65,13 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           zipCode: event.zipCode ?? state.zipCode,
         ),
       );
+      await Logger.log(Log(
+          typeOfLog: 'INFO',
+          microservice: 'Checkout SYS',
+          message: 'Checkout loaded',
+          screen: 'Checkout Screen',
+          time: TimeOfDay.now().toString(),
+          os: Platform.operatingSystem));
     }
   }
 
@@ -73,9 +83,23 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     if (state is CheckoutLoaded) {
       try {
         await _checkoutRepository.addCheckout(event.checkout);
-        debugPrint('Done');
         emit(CheckoutLoading());
-      } catch (_) {}
+        await Logger.log(Log(
+            typeOfLog: 'DEBUG',
+            microservice: 'Checkout SYS',
+            message: 'Checkout confirmed',
+            screen: 'Checkout Screen',
+            time: TimeOfDay.now().toString(),
+            os: Platform.operatingSystem));
+      } catch (e) {
+        await Logger.log(Log(
+            typeOfLog: 'ERROR',
+            microservice: 'Checkout SYS',
+            message: 'Error confirming checkout ${e.toString()}',
+            screen: 'Checkout Screen',
+            time: TimeOfDay.now().toString(),
+            os: Platform.operatingSystem));
+      }
     }
   }
 
