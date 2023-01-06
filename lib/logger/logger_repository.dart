@@ -11,6 +11,8 @@ class Logger {
   static Future<void> log(Log log) async {
     const createLogUrl = '/api';
 
+    // const createLogUrl = '/api/logs';
+
     try {
       await _networkUtil.postReq(
         createLogUrl,

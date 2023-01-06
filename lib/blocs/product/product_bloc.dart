@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/misc/get_os.dart';
 import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:e_commerce_app/models/models.dart';
 import 'package:e_commerce_app/repositories/product/product_repository.dart';
@@ -34,12 +34,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           ),
         );
     await Logger.log(Log(
-        typeOfLog: 'DEBUG',
+        typeOfLog: 'Debug',
         microservice: 'Products SYS',
         message: 'Subscribing to products',
         screen: 'Products Screen',
         time: TimeOfDay.now().toString(),
-        os: Platform.operatingSystem));
+        os: Misc.getOS()));
   }
 
   void _onUpdateProducts(
@@ -48,11 +48,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     emit(ProductLoaded(products: event.products));
     await Logger.log(Log(
-        typeOfLog: 'INFO',
+        typeOfLog: 'Info',
         microservice: 'Products SYS',
         message: 'Products updated',
         screen: 'Products Screen',
         time: TimeOfDay.now().toString(),
-        os: Platform.operatingSystem));
+        os: Misc.getOS()));
   }
 }

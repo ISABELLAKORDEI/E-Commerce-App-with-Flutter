@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app/blocs/blocs.dart';
 import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/misc/get_os.dart';
 import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:e_commerce_app/models/models.dart';
 import 'package:e_commerce_app/repositories/checkout/checkout_repository.dart';
@@ -66,12 +66,12 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         ),
       );
       await Logger.log(Log(
-          typeOfLog: 'INFO',
+          typeOfLog: 'Info',
           microservice: 'Checkout SYS',
           message: 'Checkout loaded',
           screen: 'Checkout Screen',
           time: TimeOfDay.now().toString(),
-          os: Platform.operatingSystem));
+          os: Misc.getOS()));
     }
   }
 
@@ -85,20 +85,20 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         await _checkoutRepository.addCheckout(event.checkout);
         emit(CheckoutLoading());
         await Logger.log(Log(
-            typeOfLog: 'DEBUG',
+            typeOfLog: 'Debug',
             microservice: 'Checkout SYS',
             message: 'Checkout confirmed',
             screen: 'Checkout Screen',
             time: TimeOfDay.now().toString(),
-            os: Platform.operatingSystem));
+            os: Misc.getOS()));
       } catch (e) {
         await Logger.log(Log(
-            typeOfLog: 'ERROR',
+            typeOfLog: 'Error',
             microservice: 'Checkout SYS',
             message: 'Error confirming checkout ${e.toString()}',
             screen: 'Checkout Screen',
             time: TimeOfDay.now().toString(),
-            os: Platform.operatingSystem));
+            os: Misc.getOS()));
       }
     }
   }

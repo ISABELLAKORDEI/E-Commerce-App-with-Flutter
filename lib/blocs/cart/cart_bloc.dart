@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/misc/get_os.dart';
 import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -27,21 +27,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       await Future<void>.delayed(const Duration(seconds: 1));
       emit(const CartLoaded());
       await Logger.log(Log(
-          typeOfLog: 'INFO',
+          typeOfLog: 'Info',
           microservice: 'Cart MNGT',
           message: 'Cart loaded',
           screen: 'Cart Screen',
           time: TimeOfDay.now().toString(),
-          os: Platform.operatingSystem));
+          os: Misc.getOS()));
     } catch (e) {
       emit(CartError());
       await Logger.log(Log(
-          typeOfLog: 'FATAL',
+          typeOfLog: 'Fatal',
           microservice: 'Cart MNGT',
           message: 'Error Loading Cart ${e.toString()}',
           screen: 'Cart Screen',
           time: TimeOfDay.now().toString(),
-          os: Platform.operatingSystem));
+          os: Misc.getOS()));
     }
   }
 
@@ -60,21 +60,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           ),
         );
         await Logger.log(Log(
-            typeOfLog: 'DEBUG',
+            typeOfLog: 'Debug',
             microservice: 'Cart MNGT',
             message: 'Product added',
             screen: 'Cart Screen',
             time: TimeOfDay.now().toString(),
-            os: Platform.operatingSystem));
-      } on Exception catch(e) {
+            os: Misc.getOS()));
+      } on Exception catch (e) {
         emit(CartError());
         await Logger.log(Log(
-          typeOfLog: 'ERROR',
-          microservice: 'Cart MNGT',
-          message: 'Error adding product ${e.toString()}',
-          screen: 'Cart Screen',
-          time: TimeOfDay.now().toString(),
-          os: Platform.operatingSystem));
+            typeOfLog: 'Error',
+            microservice: 'Cart MNGT',
+            message: 'Error adding product ${e.toString()}',
+            screen: 'Cart Screen',
+            time: TimeOfDay.now().toString(),
+            os: Misc.getOS()));
       }
     }
   }
@@ -94,21 +94,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           ),
         );
         await Logger.log(Log(
-          typeOfLog: 'DEBUG',
-          microservice: 'Cart MNGT',
-          message: 'Product removed',
-          screen: 'Cart Screen',
-          time: TimeOfDay.now().toString(),
-          os: Platform.operatingSystem));
-      } on Exception catch(e) {
+            typeOfLog: 'Debug',
+            microservice: 'Cart MNGT',
+            message: 'Product removed',
+            screen: 'Cart Screen',
+            time: TimeOfDay.now().toString(),
+            os: Misc.getOS()));
+      } on Exception catch (e) {
         emit(CartError());
         await Logger.log(Log(
-          typeOfLog: 'ERROR',
-          microservice: 'Cart MNGT',
-          message: 'Error removing product ${e.toString()}',
-          screen: 'Cart Screen',
-          time: TimeOfDay.now().toString(),
-          os: Platform.operatingSystem));
+            typeOfLog: 'Error',
+            microservice: 'Cart MNGT',
+            message: 'Error removing product ${e.toString()}',
+            screen: 'Cart Screen',
+            time: TimeOfDay.now().toString(),
+            os: Misc.getOS()));
       }
     }
   }

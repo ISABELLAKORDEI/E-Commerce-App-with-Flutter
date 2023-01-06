@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app/logger/logger_repository.dart';
+import 'package:e_commerce_app/misc/get_os.dart';
 import 'package:e_commerce_app/models/logger/log_model.dart';
 import 'package:e_commerce_app/models/models.dart';
 import 'package:e_commerce_app/repositories/category/category_repository.dart';
@@ -34,12 +34,12 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           ),
         );
     await Logger.log(Log(
-        typeOfLog: 'DEBUG',
+        typeOfLog: 'Debug',
         microservice: 'Categories MNGT',
         message: 'All categories loaded',
         screen: 'Products Screen',
         time: TimeOfDay.now().toString(),
-        os: Platform.operatingSystem));
+        os: Misc.getOS()));
   }
 
   void _onUpdateCategories(
@@ -50,11 +50,11 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       CategoryLoaded(categories: event.categories),
     );
     await Logger.log(Log(
-        typeOfLog: 'DEBUG',
+        typeOfLog: 'Debug',
         microservice: 'Categories MNGT',
         message: 'All categories updated',
         screen: 'Products Screen',
         time: TimeOfDay.now().toString(),
-        os: Platform.operatingSystem));
+        os: Misc.getOS()));
   }
 }
