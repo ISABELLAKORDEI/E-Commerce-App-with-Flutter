@@ -95,7 +95,7 @@ class CustomNavBar extends StatelessWidget {
               },
             );
           }
-          return const Text('Something went wrong!');
+          return const Text('');
         },
       ),
       BlocBuilder<CartBloc, CartState>(
@@ -119,7 +119,7 @@ class CustomNavBar extends StatelessWidget {
               ),
             );
           }
-          return const Text('Something went wrong!');
+          return const Text('');
         },
       )
     ];
@@ -169,7 +169,7 @@ class CustomNavBar extends StatelessWidget {
               ),
             );
           } else {
-            return const Text('Something went wrong');
+            return const Text('');
           }
         },
       )

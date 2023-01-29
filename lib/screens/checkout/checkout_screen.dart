@@ -111,7 +111,7 @@ class CheckoutScreen extends StatelessWidget {
                 ),
               );
             } else {
-              return const Text('Something went wrong');
+              return const Text('');
             }
           },
         ),
