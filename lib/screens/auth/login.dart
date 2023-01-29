@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/screens/auth/auth_controller.dart';
+import 'package:e_commerce_app/controllers/auth_controller.dart';
 import 'package:e_commerce_app/screens/auth/auth_widgets.dart';
 import 'package:e_commerce_app/screens/auth/register.dart';
 import 'package:flutter/material.dart';
@@ -63,13 +63,13 @@ class LoginState extends State<Login> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
-                    child: Image.asset('assets/images/logo.png',
+                    child: Image.asset('assets/images/louzies-logo.png',
                         width: 80, height: 80, fit: BoxFit.fill),
                   ),
                   const Padding(
                       padding: EdgeInsets.only(top: 22),
                       child: Text(
-                        'Zero to Unicorn',
+                        'Louzies',
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Montserrat',
