@@ -6,10 +6,13 @@ import 'package:e_commerce_app/config/theme.dart';
 import 'package:e_commerce_app/repositories/category/category_repository.dart';
 import 'package:e_commerce_app/repositories/checkout/checkout_repository.dart';
 import 'package:e_commerce_app/repositories/product/product_repository.dart';
+import 'package:e_commerce_app/screens/auth/auth_controller.dart';
+import 'package:e_commerce_app/screens/auth/login.dart';
 import 'package:e_commerce_app/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +22,36 @@ void main() async {
     () async => runApp(const MyApp()),
     (_, __) {},
   );
+
+  runApp(const MyApp());
+  debugPrint('Hello there...');
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool authCheck = false;
+  final auth = Auth();
+  Future<bool> startApp() async {
+    var loggedIn = await auth.getStorageToken();
+    bool foundToken = false;
+    if (loggedIn) {
+      auth.doGetProfile();
+      authCheck = true;
+      foundToken = true;
+    }
+    return foundToken;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +76,36 @@ class MyApp extends StatelessWidget {
           )..add(LoadProducts()),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: 'Zero to Unicorn',
         debugShowCheckedModeBanner: false,
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: SplashScreen.routeName,
+        // initialRoute: SplashScreen.routeName,
+        home: FutureBuilder(
+          future: startApp(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return const Scaffold(
+                  body: CircularProgressIndicator(),
+                );
+              default:
+                if (snapshot.hasError) {
+                  debugPrint('$snapshot.error');
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  if (authCheck) {
+                    debugPrint("... logged in");
+                    return const SplashScreen();
+                  } else {
+                    debugPrint("not logged in ");
+                    return const Login();
+                  }
+                }
+            }
+          },
+        ),
       ),
     );
   }
