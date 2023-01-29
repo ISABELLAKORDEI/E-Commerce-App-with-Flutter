@@ -19,7 +19,7 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Zero to Unicorn'),
+      appBar: const CustomAppBar(title: 'Louzies'),
       body: SingleChildScrollView(
         child: Column(
           children: [

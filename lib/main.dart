@@ -6,9 +6,9 @@ import 'package:e_commerce_app/config/theme.dart';
 import 'package:e_commerce_app/repositories/category/category_repository.dart';
 import 'package:e_commerce_app/repositories/checkout/checkout_repository.dart';
 import 'package:e_commerce_app/repositories/product/product_repository.dart';
-import 'package:e_commerce_app/screens/auth/auth_controller.dart';
+import 'package:e_commerce_app/controllers/auth_controller.dart';
 import 'package:e_commerce_app/screens/auth/login.dart';
-import 'package:e_commerce_app/screens/splash_screen.dart';
+import 'package:e_commerce_app/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
 
   bool authCheck = false;
   final auth = Auth();
+
   Future<bool> startApp() async {
     var loggedIn = await auth.getStorageToken();
     bool foundToken = false;
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: GetMaterialApp(
-        title: 'Zero to Unicorn',
+        title: 'Louzies',
         debugShowCheckedModeBanner: false,
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
@@ -97,7 +98,7 @@ class _MyAppState extends State<MyApp> {
                 } else {
                   if (authCheck) {
                     debugPrint("... logged in");
-                    return const SplashScreen();
+                    return const Homescreen();
                   } else {
                     debugPrint("not logged in ");
                     return const Login();

@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:e_commerce_app/screens/auth/auth_urls.dart';
 import 'package:e_commerce_app/screens/auth/auth_widgets.dart';
 import 'package:e_commerce_app/screens/auth/login.dart';
 import 'package:e_commerce_app/screens/home_screen.dart';
+import 'package:e_commerce_app/utils/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -125,34 +125,32 @@ class Auth extends GetxController {
     var body = json.encode({"username": email, "password": password});
     debugPrint(body);
     try {
-      var res = await http.post(Uri.parse(signInUrl),
-          body: body, headers: authHeaders);
-
-      debugPrint("Got response ${res.statusCode}");
-      debugPrint(res.body);
+      var res = await http.post(Uri.parse(signInUrl), body: body);
+      print("Got response ${res.statusCode}");
       var respBody = json.decode(res.body);
-      if (res.statusCode == 200) {
-        debugPrint('$respBody');
-        _token = respBody['access_token'];
-        _expiryDate =
-            DateTime.now().add(Duration(seconds: respBody['expires_in']));
-        await setTokenInfo(respBody);
-        var profileResp = await getProfile();
-        if (profileResp.statusCode == 200) {
-          var profile = json.decode(profileResp.body);
-          debugPrint("Setting body");
-          _userId = profile['id'].toString();
-          setProfile(profile);
-          debugPrint("Done setting body :)");
-        }
-      } else {
-        showSnackbar(
-            path: Icons.close_rounded,
-            title: "Failed Sign In!",
-            subtitle:
-                "Please confirm account credentials are correct or exist");
-      }
-      return res;
+      print(respBody);
+      // if (res.statusCode == 200) {
+      //   debugPrint('$respBody');
+      //   _token = respBody['access_token'];
+      //   _expiryDate =
+      //       DateTime.now().add(Duration(seconds: respBody['expires_in']));
+      //   await setTokenInfo(respBody);
+      //   var profileResp = await getProfile();
+      //   if (profileResp.statusCode == 200) {
+      //     var profile = json.decode(profileResp.body);
+      //     debugPrint("Setting body");
+      //     _userId = profile['id'].toString();
+      //     setProfile(profile);
+      //     debugPrint("Done setting body :)");
+      //   }
+      // } else {
+      //   showSnackbar(
+      //       path: Icons.close_rounded,
+      //       title: "Failed Sign In!",
+      //       subtitle:
+      //           "Please confirm account credentials are correct or exist");
+      // }
+      return;
     } catch (error) {
       debugPrint('$error');
       showSnackbar(
@@ -186,14 +184,14 @@ class Auth extends GetxController {
   }
 
   Future<bool> getStorageToken() async {
-    var _prefs = await SharedPreferences.getInstance();
+    var prefs = await SharedPreferences.getInstance();
     bool foundToken = false;
-    if (_prefs.containsKey("token")) {
-      var token = json.decode(_prefs.getString("token")!);
+    if (prefs.containsKey("token")) {
+      var token = json.decode(prefs.getString("token")!);
       _token = token['access_token'];
       setTokenInfo(token);
-      if (_prefs.containsKey("profile")) {
-        _profile = json.decode(_prefs.getString("profile")!);
+      if (prefs.containsKey("profile")) {
+        _profile = json.decode(prefs.getString("profile")!);
       } else {
         debugPrint("No profile found.");
       }
