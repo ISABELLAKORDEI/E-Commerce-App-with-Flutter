@@ -47,7 +47,7 @@ class WishlistScreen extends StatelessWidget {
                 ),
               );
             }
-            return const Text('Something went wrong!');
+            return const Text('');
           },
         ));
   }

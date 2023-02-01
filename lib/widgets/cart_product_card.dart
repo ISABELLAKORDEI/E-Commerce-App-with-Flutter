@@ -320,7 +320,7 @@ class ProductActions extends StatelessWidget {
             return const SizedBox();
           }
         } else {
-          return const Text('Something went wrong.');
+          return const Text('');
         }
       },
     );

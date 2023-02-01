@@ -157,7 +157,7 @@ class CartScreen extends StatelessWidget {
               ),
             );
           }
-          return const Text('Something went wrong');
+          return const Text('');
         },
       ),
     );

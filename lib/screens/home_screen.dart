@@ -45,7 +45,7 @@ class Homescreen extends StatelessWidget {
                         .toList(),
                   );
                 } else {
-                  return const Text('Something went wrong.');
+                  return const Text('');
                 }
               },
             ),
@@ -63,7 +63,7 @@ class Homescreen extends StatelessWidget {
                           .where((product) => product.isRecommended)
                           .toList());
                 } else {
-                  return const Text('Something went wrong.');
+                  return const Text('');
                 }
               },
             ),
@@ -81,7 +81,7 @@ class Homescreen extends StatelessWidget {
                           .where((product) => product.isPopular)
                           .toList());
                 } else {
-                  return const Text('Something went wrong.');
+                  return const Text('');
                 }
               },
             ),
